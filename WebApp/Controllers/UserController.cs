@@ -5,6 +5,7 @@ using Application.Users.Commands.Register;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Models.User;
 
 namespace WebApp.Controllers;
 
@@ -16,16 +17,16 @@ public class UserController : BaseController
 
     public UserController(IMapper mapper) => _mapper = mapper;
 
-    [HttpGet("register")]
+    [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Register(string username, string email, string password)
+    public async Task<IActionResult> Register([FromBody]RegisterUserDto registerUserDto)
     {
         var query = new RegisterUserCommand()
         {
-            Username = username,
-            Email = email,
-            PasswordHash = password
+            Username = registerUserDto.Username,
+            Email = registerUserDto.Email,
+            PasswordHash = registerUserDto.PasswordHash
         };
 
         var vm = await Mediator.Send(query);
@@ -33,16 +34,16 @@ public class UserController : BaseController
         return Ok();
     }
 
-    [HttpGet("login")]
+    [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
     {
         var query = new LoginUserCommand()
         {
-            Email = email,
-            Password = password
+            Email = loginUserDto.Email,
+            Password = loginUserDto.PasswordHash
         };
 
         var vm = await Mediator.Send(query);

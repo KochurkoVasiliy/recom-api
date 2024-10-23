@@ -6,7 +6,8 @@ namespace Application.Interfaces;
 public interface IAppDbContext
 {
     DbSet<Film> Films { get; set; }
-    DbSet<FilmVector> FilmVectors { get; set; }
+    DbSet<Rating> Ratings { get; set; }
+    DbSet<FacetWeights> FacetWeights { get; set; }
     
     DbSet<User> Users { get; set; }
     

@@ -21,7 +21,15 @@ public static class DependencyInjection
             provider.GetService<AppDbContext>() ?? throw new AppDbContextNotFoundException());
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IRecommendationService, RecommendationService>();
+        services.AddScoped<IKNearestNeighborsService, KNearestNeighborsService>();
         services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+        
+        services.AddScoped<IFacetWeightService, FacetWeightService>();
+        
+        services.AddSingleton<IRecommendationModelService, RecommendationModelService>();
+        services.AddHostedService<ModelTrainingHostedService>();
+        
         return services;
     }
 }

@@ -8,9 +8,13 @@ public class DbInitializer
     public static void Initialize(AppDbContext context)
     {
         context.Database.EnsureCreated();
-        // var films = LoadFilmsFromJson("Kinopois.json");
-        // context.Films.AddRange(films);
-        // context.SaveChanges();
+        
+        if (!context.Films.Any())
+        {
+            var films = LoadFilmsFromJson("Kinopois.json");
+            context.Films.AddRange(films);
+            context.SaveChanges();
+        }
     }
      
     private static List<Film> LoadFilmsFromJson(string filePath)

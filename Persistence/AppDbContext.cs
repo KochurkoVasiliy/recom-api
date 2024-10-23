@@ -8,7 +8,8 @@ namespace Persistence;
 public class AppDbContext : DbContext, IAppDbContext
 {
     public DbSet<Film> Films { get; set; }
-    public DbSet<FilmVector> FilmVectors { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
+    public DbSet<FacetWeights> FacetWeights { get; set; }
     public DbSet<User> Users { get; set; }
     
     public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -17,8 +18,9 @@ public class AppDbContext : DbContext, IAppDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new FilmConfiguration());
-        builder.ApplyConfiguration(new FilmVectorConfiguration());
         builder.ApplyConfiguration(new UserConfiguration());
+        builder.ApplyConfiguration(new FacetWeightsConfiguration());
+        builder.ApplyConfiguration(new RatingConfiguration());
         base.OnModelCreating(builder);
     }
 }
