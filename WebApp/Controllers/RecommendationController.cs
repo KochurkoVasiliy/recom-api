@@ -13,7 +13,7 @@ public class RecommendationController : BaseController
 
     public RecommendationController(IMapper mapper) => _mapper = mapper;
     
-    [HttpGet("popular")]
+    /*[HttpGet("popular")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<string> GetMostPopularFilms()
     {
@@ -25,7 +25,7 @@ public class RecommendationController : BaseController
     public ActionResult<string> GetNewerFilms()
     {
         return Ok(UserId);
-    }
+    }*/
     
     [Authorize]
     [HttpGet("for-user")]
